@@ -16,7 +16,7 @@ class Logging(commands.Cog, name="logging"):
         description="Sets the logging channel for the server."
     )
     @commands.has_permissions(manage_guild=True)
-    @commands.bot_has_permissions(manage_guilds=True)
+    @commands.bot_has_permissions(manage_guild=True)
     @checks.not_blacklisted()
     @app_commands.describe(
         channel="The channel you want the logging channel to be",
@@ -31,6 +31,11 @@ class Logging(commands.Cog, name="logging"):
         """
         if channel:
             self.logging_channels[context.guild.id] = channel.id
+            embed=discord.Embed(
+                description=f"Set the logging channel to <#{channel.id}>.",
+                color=0x008000
+            )
+            await Context.channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):
@@ -64,5 +69,5 @@ class Logging(commands.Cog, name="logging"):
 
                 await channel.send(embed=embed)
 
-def setup(bot):
-    bot.add_cog(Logging(bot))
+async def setup(bot):
+    await bot.add_cog(Logging(bot))
