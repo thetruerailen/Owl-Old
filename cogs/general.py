@@ -9,6 +9,7 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Context
 import requests
+from bs4 import BeautifulSoup
 
 from helpers import checks
 
@@ -210,6 +211,38 @@ class General(commands.Cog, name="general"):
                         color=0xE02B2B,
                     )
                 await context.send(embed=embed)
+
+    @commands.hybrid_command(
+        name="bing",
+        description="Perform a Bing search and display the results.",
+    )
+    async def bing(self, context: commands.Context, *, query):
+        # Construct the Bing search URL
+        search_url = f"https://www.bing.com/search?q={query}"
+
+        try:
+            # Send a request to Bing and get the HTML content
+            response = requests.get(search_url)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, "html.parser")
+
+            # Extract search results
+            results = []
+            for result in soup.select(".b_algo"):
+                title = result.select_one("h2").get_text()
+                link = result.select_one("a")["href"]
+                snippet = result.select_one(".b_caption p")
+                snippet_text = snippet.get_text() if snippet else "No snippet available"
+                results.append(f"**{title}**\n{link}\n{snippet_text}")
+
+            # Send the search results to the Discord channel
+            if results:
+                await context.send("\n\n".join(results))
+            else:
+                await context.send("No results found.")
+
+        except requests.RequestException as e:
+            await context.send(f"An error occurred: {e}")
 
 
 async def setup(bot):
