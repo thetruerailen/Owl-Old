@@ -1,0 +1,13 @@
+[2023-08-27 20:06:57] [INFO    ] discord_bot: Loaded extension 'logging'
+[2023-08-27 20:06:57] [INFO    ] discord_bot: Loaded extension 'fun'
+[2023-08-27 20:06:57] [INFO    ] discord_bot: Loaded extension 'counting'
+[2023-08-27 20:06:57] [INFO    ] discord_bot: Loaded extension 'moderation'
+[2023-08-27 20:06:57] [INFO    ] discord_bot: Loaded extension 'owner'
+[2023-08-27 20:06:57] [INFO    ] discord_bot: Loaded extension 'general'
+[2023-08-27 20:07:00] [INFO    ] discord_bot: Logged in as potato bot
+[2023-08-27 20:07:00] [INFO    ] discord_bot: discord.py API version: 2.1.1
+[2023-08-27 20:07:00] [INFO    ] discord_bot: Python version: 3.10.5
+[2023-08-27 20:07:00] [INFO    ] discord_bot: Running on: Darwin 21.6.0 (posix)
+[2023-08-27 20:07:00] [INFO    ] discord_bot: -------------------
+[2023-08-27 20:07:00] [INFO    ] discord_bot: Syncing commands globally...
+[2023-08-27 20:07:03] [INFO    ] discord_bot: Executed 8ball command in Potato's Farm (ID: 1142055115398852668) by bailenrailen#0 (ID: 1129604586668302386)
