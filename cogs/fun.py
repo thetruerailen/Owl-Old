@@ -6,6 +6,8 @@ import aiohttp
 import discord
 from discord.ext import commands
 from discord.ext.commands import Context
+import requests
+import asyncio
 
 from helpers import checks
 
@@ -186,6 +188,54 @@ class Fun(commands.Cog, name="fun"):
             await context.send(embed=embed)
         else:
             await context.send("Failed to fetch a cat picture. Please try again.")
+
+    @commands.command(
+        name="anime",
+        description="Get a random anime image and rate it.",
+    )
+    async def anime(self, ctx: commands.Context) -> None:
+        response = requests.get('https://api.catboys.com/img')
+        if response.status_code == 200:
+            data = response.json()
+            image_url = data['url']
+            artist = data['artist']
+
+            embed = discord.Embed(title=f"Artist: {artist}", url=image_url)
+            embed.set_image(url=image_url)
+
+            if artist == "unknown":
+                embed.description = "If you're the owner of this image, you might want to try to contact https://catboys.com/api (The API we use to pull data)"
+
+            anime_msg = await ctx.send(embed=embed)
+            await anime_msg.add_reaction('👍')
+            await anime_msg.add_reaction('👎')
+
+            def check(reaction, user):
+                return user == ctx.author and str(reaction.emoji) in ['👍', '👎']
+
+            try:
+                reaction, _ = await self.bot.wait_for('reaction_add', timeout=5.0, check=check)
+                rating = 1 if reaction.emoji == '👍' else -1
+
+                if str(anime_msg.id) not in anime_ratings:
+                    anime_ratings[str(anime_msg.id)] = {'total': 0, 'count': 0}
+
+                anime_ratings[str(anime_msg.id)]['total'] += rating
+                anime_ratings[str(anime_msg.id)]['count'] += 1
+
+                average_rating = anime_ratings[str(anime_msg.id)]['total'] / anime_ratings[str(anime_msg.id)]['count']
+
+                with open('anime_ratings.json', 'w') as file:
+                    json.dump(anime_ratings, file)
+
+                embed.set_footer(text=f"Average Rating: {average_rating:.2f}")
+                await anime_msg.edit(embed=embed)
+
+            except asyncio.TimeoutError:
+                pass
+
+        else:
+            await ctx.send("An error occurred while fetching anime data.")
 
 
 async def setup(bot):
