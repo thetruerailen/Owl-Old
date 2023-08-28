@@ -10,6 +10,7 @@ from discord.ext import commands
 from discord.ext.commands import Context
 import requests
 from bs4 import BeautifulSoup
+import asyncio
 
 from helpers import checks
 
@@ -216,17 +217,14 @@ class General(commands.Cog, name="general"):
         name="bing",
         description="Perform a Bing search and display the results.",
     )
-    async def bing(self, context: commands.Context, *, query):
-        # Construct the Bing search URL
+    async def bing_command(self, ctx: commands.Context, *, query):
         search_url = f"https://www.bing.com/search?q={query}"
 
         try:
-            # Send a request to Bing and get the HTML content
             response = requests.get(search_url)
             response.raise_for_status()
             soup = BeautifulSoup(response.text, "html.parser")
 
-            # Extract search results
             results = []
             for result in soup.select(".b_algo"):
                 title = result.select_one("h2").get_text()
@@ -235,14 +233,19 @@ class General(commands.Cog, name="general"):
                 snippet_text = snippet.get_text() if snippet else "No snippet available"
                 results.append(f"**{title}**\n{link}\n{snippet_text}")
 
-            # Send the search results to the Discord channel
-            if results:
-                await context.send("\n\n".join(results))
-            else:
-                await context.send("No results found.")
+            # Join results with a separator to split long responses
+            response_message = "\n\n".join(results)
+
+            # Split message into chunks to fit within 2000 characters
+            chunks = [response_message[i:i+2000] for i in range(0, len(response_message), 2000)]
+
+            for chunk in chunks:
+                message = await ctx.send(chunk)
+                await asyncio.sleep(60)  # Wait for 60 seconds
+                await message.delete()  # Delete the message with the embed
 
         except requests.RequestException as e:
-            await context.send(f"An error occurred: {e}")
+            await ctx.send(f"An error occurred: {e}")
 
 
 async def setup(bot):
