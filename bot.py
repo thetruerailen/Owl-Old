@@ -150,13 +150,16 @@ async def on_ready() -> None:
 
 @tasks.loop(minutes=1.0)
 async def status_task() -> None:
-  """
+    """
     Setup the game status task of the bot.
     """
-  # statuses = ["Minecraft"]
-  await bot.change_presence(activity=discord.Activity(
-      type=5, name="the Hypixel Tournament"),
-                            status=discord.Status.dnd)
+    # Get the total number of users the bot is connected to
+    total_users = sum(1 for _ in bot.get_all_members())
+
+    await bot.change_presence(activity=discord.Activity(
+        type=discord.ActivityType.watching,
+        name=f"over {total_users} users"),
+        status=discord.Status.dnd)
 
 
 @bot.event
