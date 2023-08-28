@@ -245,55 +245,5 @@ class Fun(commands.Cog, name="fun"):
         else:
             await ctx.send("An error occurred while fetching anime data.")
 
-    @commands.hybrid_command(
-        name="imagine",
-        description="Generate an image based on a description.",
-    )
-    async def imagine(self, context: commands.Context, *, description):
-        generating_message = await context.send(embed=self.generating_embed(description))
-
-        payload = {"inputs": description}
-        image_bytes = self.query(payload)
-
-        try:
-            image = Image.open(io.BytesIO(image_bytes))
-            image.save("generated_image.png")
-
-            await generating_message.edit(embed=self.done_embed(description))
-            
-            with open("generated_image.png", "rb") as image_file:
-                await context.send(file=discord.File(image_file))
-        except Exception as e:
-            await generating_message.edit(embed=self.error_embed(str(e)))
-
-    def generating_embed(self, description):
-        embed = discord.Embed(
-            title="Generating...",
-            description=f"Generating an image based on:\n{description}",
-            color=discord.Color.orange()
-        )
-        return embed
-
-    def done_embed(self, description):
-        embed = discord.Embed(
-            title="Done!",
-            description=f"Generated image based on:\n{description}",
-            color=discord.Color.green()
-        )
-        return embed
-
-    def error_embed(self, error_message):
-        embed = discord.Embed(
-            title="Error",
-            description=f"An error occurred:\n{error_message}",
-            color=discord.Color.red()
-        )
-        return embed
-
-    def query(self, payload):
-        headers = {"Authorization": "Bearer " + huggingfacekey}
-        response = requests.post(API_URL, headers=headers, json=payload)
-        return response.content
-
 async def setup(bot):
     await bot.add_cog(Fun(bot))
