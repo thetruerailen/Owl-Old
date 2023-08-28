@@ -1,0 +1,12 @@
+{
+  "prefix": "the desired prefix",
+  "permissions": "8",
+  "application_id": "set application id of bot here",
+  "sync_commands_globally": true,
+  "owners": [
+    1231424554,
+    1242394234238904234,
+    2342342392384,
+    "replace user id(s) with your user id(s) to make them owner"
+  ]
+}
