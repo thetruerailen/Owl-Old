@@ -35,7 +35,7 @@ class Logging(commands.Cog, name="logging"):
                 description=f"Set the logging channel to <#{channel.id}>.",
                 color=0x008000
             )
-            await Context.channel.send(embed=embed)
+            await channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_message_delete(self, message):

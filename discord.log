@@ -1,19 +1,12 @@
-[2023-08-28 07:22:14] [INFO    ] discord_bot: Loaded extension 'logging'
-[2023-08-28 07:22:14] [INFO    ] discord_bot: Loaded extension 'fun'
-[2023-08-28 07:22:14] [INFO    ] discord_bot: Loaded extension 'counting'
-[2023-08-28 07:22:14] [INFO    ] discord_bot: Loaded extension 'farm'
-[2023-08-28 07:22:14] [INFO    ] discord_bot: Loaded extension 'moderation'
-[2023-08-28 07:22:14] [INFO    ] discord_bot: Loaded extension 'owner'
-[2023-08-28 07:22:14] [INFO    ] discord_bot: Loaded extension 'general'
-[2023-08-28 07:22:18] [INFO    ] discord_bot: Logged in as potato bot
-[2023-08-28 07:22:18] [INFO    ] discord_bot: discord.py API version: 2.1.1
-[2023-08-28 07:22:18] [INFO    ] discord_bot: Python version: 3.10.5
-[2023-08-28 07:22:18] [INFO    ] discord_bot: Running on: Darwin 21.6.0 (posix)
-[2023-08-28 07:22:18] [INFO    ] discord_bot: -------------------
-[2023-08-28 07:22:18] [INFO    ] discord_bot: Syncing commands globally...
-[2023-08-28 07:22:51] [INFO    ] discord_bot: Executed farm command in Potato's Farm (ID: 1142055115398852668) by bailenrailen#0 (ID: 1129604586668302386)
-[2023-08-28 07:22:57] [INFO    ] discord_bot: Executed plant command in Potato's Farm (ID: 1142055115398852668) by bailenrailen#0 (ID: 1129604586668302386)
-[2023-08-28 07:23:30] [INFO    ] discord_bot: Executed daily command in Potato's Farm (ID: 1142055115398852668) by bailenrailen#0 (ID: 1129604586668302386)
-[2023-08-28 07:23:56] [INFO    ] discord_bot: Executed farm command in Potato's Farm (ID: 1142055115398852668) by bailenrailen#0 (ID: 1129604586668302386)
-[2023-08-28 07:24:01] [INFO    ] discord_bot: Executed harvest command in Potato's Farm (ID: 1142055115398852668) by bailenrailen#0 (ID: 1129604586668302386)
-[2023-08-28 07:24:16] [INFO    ] discord_bot: Executed leaderboard command in Potato's Farm (ID: 1142055115398852668) by bailenrailen#0 (ID: 1129604586668302386)
+[2023-08-28 23:16:54] [INFO    ] discord_bot: Loaded extension 'counting'
+[2023-08-28 23:16:54] [INFO    ] discord_bot: Loaded extension 'fun'
+[2023-08-28 23:16:54] [INFO    ] discord_bot: Loaded extension 'general'
+[2023-08-28 23:16:54] [INFO    ] discord_bot: Loaded extension 'logging'
+[2023-08-28 23:16:54] [INFO    ] discord_bot: Loaded extension 'moderation'
+[2023-08-28 23:16:54] [INFO    ] discord_bot: Loaded extension 'owner'
+[2023-08-28 23:16:57] [INFO    ] discord_bot: Logged in as Owl
+[2023-08-28 23:16:57] [INFO    ] discord_bot: discord.py API version: 2.3.2
+[2023-08-28 23:16:57] [INFO    ] discord_bot: Python version: 3.11.5
+[2023-08-28 23:16:57] [INFO    ] discord_bot: Running on: Windows 10 (nt)
+[2023-08-28 23:16:57] [INFO    ] discord_bot: -------------------
+[2023-08-28 23:16:57] [INFO    ] discord_bot: Syncing commands globally...
