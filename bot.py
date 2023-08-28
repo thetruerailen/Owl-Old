@@ -16,7 +16,6 @@ import aiohttp
 import exceptions
 
 token = os.environ['token']
-openai.api_key = os.environ['APIKey']
 
 if not os.path.isfile(
     f"{os.path.realpath(os.path.dirname(__file__))}/config.json"):
@@ -285,32 +284,9 @@ async def load_cogs() -> None:
         bot.logger.info(f"Loaded extension '{extension}'")
       except Exception as e:
         exception = f"{type(e).__name__}: {e}"
-        bot.logger.error(f"Failed to load extension {extension}\n{exception}")
+        bot.logger.error(f"Failed to load extension {extension}\n{exception}"
 
-@bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
 
-    completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[{
-            "role": "system",
-            "content": "You are a mod on a discord server that will be asked if some messages are inappropriate. If they are then say `yes` if not then say `no`. If the message is a slash command on discord, ignore it."
-        }, {
-            "role": "user",
-            "content": "Is this message inappropriate: " + message.content
-        }]
-    )
-
-    if "yes" in completion["choices"][0]["message"]["content"].lower():
-        await message.delete()
-        await message.channel.send(f"{message.author.mention}, please avoid using inappropriate language.")
-
-    await bot.process_commands(message)
-
-# This is a test
-  
 asyncio.run(init_db())
 asyncio.run(load_cogs())
 bot.run(token)
