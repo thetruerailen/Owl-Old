@@ -16,7 +16,7 @@ import aiohttp
 import exceptions
 
 token = os.environ['token']
-openai.api_key = os.environ['API Key']
+openai.api_key = os.environ['APIKey']
 
 if not os.path.isfile(
     f"{os.path.realpath(os.path.dirname(__file__))}/config.json"):
